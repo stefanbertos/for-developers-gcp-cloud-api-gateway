@@ -1,0 +1,94 @@
+swagger: "2.0"
+info:
+  title: USER API
+  version: "1.0"
+host: user-api.apigateway.api-gateway-359117.cloud.goog
+schemes:
+  - https
+produces:
+  - application/json
+security:
+  - api_key: [ ]
+paths:
+  /user:
+    get:
+      summary: Get all users
+      x-google-backend:
+        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
+      responses:
+        200:
+          description: A JSON array of users
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+    post:
+      summary: Add new user
+      x-google-backend:
+        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
+      security:
+        - api_key: [ ]
+      parameters:
+        - in: body
+          name: user
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        201:
+          description: Created
+        415:
+          description: Invalid or missing Content-Type header
+    put:
+      summary: Update user
+      x-google-backend:
+        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
+      security:
+        - api_key: [ ]
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        '200':
+          description: OK
+        '415':
+          description: Invalid or missing Content-Type header
+    delete:
+      summary: Delete user
+      x-google-backend:
+        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
+      security:
+        - api_key: [ ]
+      parameters:
+        - name: username
+          in: path
+          description: username of the user to delete
+          required: true
+          type: string
+      responses:
+        204:
+          description: User deleted
+        404:
+          description: Unable to delete non-existent user
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"
+definitions:
+  User:
+    properties:
+      username:
+        type: string
+      firstname:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+    required:
+      - username

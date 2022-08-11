@@ -48,17 +48,10 @@ public class UserFunction implements HttpFunction {
                     response.setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
                     break;
                 }
-                String userToUpdate = request.getPath().replace("/","");
-                if (users.containsKey(userToUpdate)) {
                     UserVO updatedUser = gson.fromJson(request.getReader(), UserVO.class);
-                    updatedUser.setUsername(userToUpdate);
-                    users.put(userToUpdate, updatedUser);
+                    users.put(updatedUser.getUsername(), updatedUser);
                     writer.write(gson.toJson(updatedUser));
                     response.setStatusCode(HttpURLConnection.HTTP_OK);
-                } else {
-                    writer.write("Unable to update non-existend user");
-                    response.setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
-                }
                 break;
             case "DELETE":
                 String userToRemove = request.getPath().replace("/","");
