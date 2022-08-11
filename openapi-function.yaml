@@ -1,86 +1,94 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  title: USER API
-  version: "1.0"
+  description: User API sample
+  version: 1.0.6
+  title: User API
 host: user-api.apigateway.api-gateway-359117.cloud.goog
+basePath: /v2
 schemes:
   - https
-produces:
-  - application/json
 security:
-  - api_key: [ ]
+  - api_key: []
+x-google-backend:
+  address: >-
+    https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
 paths:
   /user:
-    get:
-      summary: Get all users
-      x-google-backend:
-        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
-      responses:
-        200:
-          description: A JSON array of users
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/User'
     post:
-      summary: Add new user
-      x-google-backend:
-        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
-      security:
-        - api_key: [ ]
+      tags:
+        - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
         - in: body
-          name: user
+          name: body
+          description: Created user object
           required: true
           schema:
             $ref: '#/definitions/User'
       responses:
-        201:
-          description: Created
-        415:
-          description: Invalid or missing Content-Type header
+        default:
+          description: successful operation
+  /user/{username}:
     put:
-      summary: Update user
-      x-google-backend:
-        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
-      security:
-        - api_key: [ ]
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "object that needs to be updated"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        '200':
-          description: OK
-        '415':
-          description: Invalid or missing Content-Type header
-    delete:
-      summary: Delete user
-      x-google-backend:
-        address: https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
-      security:
-        - api_key: [ ]
+      tags:
+        - user
+      summary: Updated user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
         - name: username
           in: path
-          description: username of the user to delete
+          description: name that need to be updated
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated user object
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '400':
+          description: Invalid user supplied
+        '404':
+          description: User not found
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be deleted
           required: true
           type: string
       responses:
-        204:
-          description: User deleted
-        404:
-          description: Unable to delete non-existent user
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
 securityDefinitions:
   api_key:
-    type: "apiKey"
-    name: "key"
-    in: "query"
+    type: apiKey
+    name: key
+    in: query
 definitions:
   User:
+    type: object
     properties:
       username:
         type: string
@@ -90,5 +98,3 @@ definitions:
         type: string
       email:
         type: string
-    required:
-      - username
