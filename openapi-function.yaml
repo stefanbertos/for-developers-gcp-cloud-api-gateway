@@ -11,9 +11,25 @@ security:
   - api_key: []
 x-google-backend:
   address: >-
-    https://europe-west3-api-gateway-359117.cloudfunctions.net/user-function-manual
+    https://user-function-manual-tbi3decprq-ey.a.run.app
 paths:
   /user:
+    get:
+      tags:
+        - user
+      summary: Get users
+      description: Get all users
+      operationId: getAll
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
     post:
       tags:
         - user
