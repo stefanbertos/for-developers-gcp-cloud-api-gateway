@@ -4,14 +4,14 @@ info:
   version: 1.0.6
   title: User API
 host: user-api.apigateway.api-gateway-359117.cloud.goog
-basePath: /v2
+basePath: /v1
 schemes:
   - https
 security:
   - api_key: []
 x-google-backend:
   address: >-
-    https://user-function-manual-tbi3decprq-ey.a.run.app
+    https://europe-west1-api-gateway-359117.cloudfunctions.net/user-function-manual
 paths:
   /user:
     get:
@@ -22,6 +22,7 @@ paths:
       operationId: getAll
       produces:
         - application/json
+      security: []
       parameters: []
       responses:
         200:
