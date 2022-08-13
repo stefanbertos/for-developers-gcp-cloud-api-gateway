@@ -7,7 +7,7 @@ The Rest api is inspired by https://help.sonatype.com/iqserver/automating/rest-a
 Install Google Cloud SDK as in guide at https://cloud.google.com/sdk/docs/install 
 
 
-![diagram](diagram.drawio.png?raw=true "Title")
+![diagram](diagram-simple.drawio.png?raw=true "Title")
 
 Run the following command to confirm that your function builds:
 ```
