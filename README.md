@@ -88,7 +88,7 @@ https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key
 ## Test you API
 ```
 curl -i "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user"
-curl -i -X POST -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?key=AIzaSyDWjfNPYdAsB7ith5IBmYzakBB2LstYDpM" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstname\": \"Ted\",\"lastname\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
+curl -i -X POST -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?key=" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstname\": \"Ted\",\"lastname\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
 curl -i -X PUT -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=ted&key=" -d "{\"firstname\": \"Teddy\",\"lastname\": \"Norman\",\"email\": \"tnorman@example.com\"}"
 curl -i -X DELETE "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=bob&key="
 ```
