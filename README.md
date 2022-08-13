@@ -24,9 +24,9 @@ If testing completes successfully, it displays the URL you can visit in your web
 Alternatively, you can send requests to this function using curl from another terminal window: (commands are escaped for windows)
 ```
 curl -i "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user"
-curl -i -X POST -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?key=AIzaSyCIH_cobHdF74Efap0o7uQsbwotCce2ETg" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstname\": \"Ted\",\"lastname\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
-curl -i -X PUT -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=ted&key=AIzaSyCIH_cobHdF74Efap0o7uQsbwotCce2ETg" -d "{\"firstname\": \"Teddy\",\"lastname\": \"Norman\",\"email\": \"tnorman@example.com\"}"
-curl -i -X DELETE "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=bob&key=AIzaSyCIH_cobHdF74Efap0o7uQsbwotCce2ETg"
+curl -i -X POST -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?key=" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstname\": \"Ted\",\"lastname\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
+curl -i -X PUT -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=ted&key=" -d "{\"firstname\": \"Teddy\",\"lastname\": \"Norman\",\"email\": \"tnorman@example.com\"}"
+curl -i -X DELETE "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=bob&key="
 
 ```
 
