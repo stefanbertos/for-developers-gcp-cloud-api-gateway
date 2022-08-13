@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserFunction implements HttpFunction {
     static final Map<String, UserVO> users = new HashMap<>();
@@ -21,6 +22,7 @@ public class UserFunction implements HttpFunction {
 
         // Default values avoid null issues (with switch/case) and exceptions from get() (optionals)
         String contentType = request.getContentType().orElse("");
+        Optional<String> username = request.getFirstQueryParameter("username");
         System.out.println("Content type is " + contentType);
         Gson gson = new Gson();
 
@@ -49,14 +51,15 @@ public class UserFunction implements HttpFunction {
                     break;
                 }
                     UserVO updatedUser = gson.fromJson(request.getReader(), UserVO.class);
+                    updatedUser.setUsername(username.get());
                     users.put(updatedUser.getUsername(), updatedUser);
                     writer.write(gson.toJson(updatedUser));
                     response.setStatusCode(HttpURLConnection.HTTP_OK);
                 break;
             case "DELETE":
-                String userToRemove = request.getPath().replace("/","");
-                if (users.containsKey(userToRemove)) {
-                    users.remove(userToRemove);
+                //Delete user
+                if (users.containsKey(username.get())) {
+                    users.remove(username.get());
                     writer.write("User deleted");
                     response.setStatusCode(HttpURLConnection.HTTP_NO_CONTENT);
                 } else {

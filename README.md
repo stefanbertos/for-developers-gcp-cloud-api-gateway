@@ -23,10 +23,10 @@ If testing completes successfully, it displays the URL you can visit in your web
 
 Alternatively, you can send requests to this function using curl from another terminal window: (commands are escaped for windows)
 ```
-curl -i localhost:8080
-curl -i -X POST -H "Content-Type: application/json" "http://localhost:8080" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstName\": \"Ted\",\"lastName\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
-curl -i -X PUT -H "Content-Type: application/json" "http://localhost:8080/ted" -d "{\"firstName\": \"Teddy\",\"lastName\": \"Norman\",\"email\": \"tnorman@example.com\"}"
-curl -i -X DELETE "http://localhost:8080/bob"
+curl -i "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user"
+curl -i -X POST -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?key=AIzaSyCIH_cobHdF74Efap0o7uQsbwotCce2ETg" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstname\": \"Ted\",\"lastname\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
+curl -i -X PUT -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=ted&key=AIzaSyCIH_cobHdF74Efap0o7uQsbwotCce2ETg" -d "{\"firstname\": \"Teddy\",\"lastname\": \"Norman\",\"email\": \"tnorman@example.com\"}"
+curl -i -X DELETE "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=bob&key=AIzaSyCIH_cobHdF74Efap0o7uQsbwotCce2ETg"
 
 ```
 
@@ -43,5 +43,3 @@ To view logs for your function with the gcloud CLI, use the logs read command, f
 ```
 gcloud functions logs read user-function-manual --region europe-west3 
 ```
-
-check the quotas and limits
