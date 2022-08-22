@@ -30,7 +30,7 @@ curl -i -X DELETE "http://localhost:8080/bob"
 
 ```
 
-To deploy the function with an HTTP trigger, run the following command in the helloworld-gradle directory:
+To deploy the function with an HTTP trigger, run the following command in the directory:
 ```
 gcloud auth login
 gcloud config set project PROJECT_ID
