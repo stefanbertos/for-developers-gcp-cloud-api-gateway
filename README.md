@@ -39,8 +39,8 @@ To deploy the function with an HTTP trigger, run the following command in the he
 ```
 gcloud auth login
 gcloud config set project PROJECT_ID
-gcloud functions deploy user-function-manual --region europe-west1 --entry-point functions.UserFunction --runtime java17 --trigger-http --memory 512MB --timeout 90 --max-instances 1 --service-account user-function@api-gateway-359117.iam.gserviceaccount.com
-gcloud functions add-iam-policy-binding user-function-manual --region=europe-west1 --member="serviceAccount:user-function@api-gateway-359117.iam.gserviceaccount.com" --role="roles/cloudfunctions.invoker"
+gcloud functions deploy user-function-manual --region europe-west1 --entry-point functions.UserFunction --runtime java17 --trigger-http --memory 512MB --timeout 90 --max-instances 1 --service-account user-function@api-gateway-360218.iam.gserviceaccount.com
+gcloud functions add-iam-policy-binding user-function-manual --region=europe-west1 --member="serviceAccount:user-function@api-gateway-360218.iam.gserviceaccount.com" --role="roles/cloudfunctions.invoker"
 ```
 where user-function-manual is the registered name by which your function will be identified in the console, and --entry-point specifies your function's fully qualified class name (FQN).
 
@@ -67,35 +67,35 @@ Enter the following command, where:
 API_ID specifies the name of your API. See API ID requirements for API naming guidelines.
 PROJECT_ID specifies the name of your Google Cloud project.
 ```
-gcloud api-gateway apis create user-api --project=api-gateway-359117
+gcloud api-gateway apis create user-api --project=api-gateway-360218
 ```
 ## Create API Config
 Before API Gateway can be used to manage traffic to your deployed API backend, it needs an API config.
 ```
-gcloud api-gateway api-configs create user-api-config --api=user-api --openapi-spec=user-api.yaml --project=api-gateway-359117 --backend-auth-service-account=user-function@api-gateway-359117.iam.gserviceaccount.com
+gcloud api-gateway api-configs create user-api-config --api=user-api --openapi-spec=user-api.yaml --project=api-gateway-360218 --backend-auth-service-account=user-function@api-gateway-359117.iam.gserviceaccount.com
 ```
 ## Create API Gateway
 Now deploy the API config on a gateway. Deploying an API config on a gateway defines an external URL that API clients can use to access your API.
 ```
-gcloud api-gateway gateways create apigateway-eu --api=user-api --api-config=user-api-config --location=europe-west1 --project=api-gateway-359117
+gcloud api-gateway gateways create apigateway-eu --api=user-api --api-config=user-api-config --location=europe-west1 --project=api-gateway-360218
 ```
 ## Enable your API
 ```
-gcloud services enable user-api-1yw8dyurd1ka5.apigateway.api-gateway-359117.cloud.goog
+gcloud services enable user-api-1yw8dyurd1ka5.apigateway.api-gateway-360218.cloud.goog
 ```
 ## Create API keys
 https://cloud.google.com/docs/authentication/api-keys#creating_an_api_key
 ## Test you API
 ```
-curl -i "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user"
-curl -i -X POST -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?key=" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstname\": \"Ted\",\"lastname\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
-curl -i -X PUT -H "Content-Type: application/json" "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=ted&key=" -d "{\"firstname\": \"Teddy\",\"lastname\": \"Norman\",\"email\": \"tnorman@example.com\"}"
-curl -i -X DELETE "https://apigateway-eu-dkgv397r.ew.gateway.dev/v1/user?username=bob&key="
+curl -i "https://apigateway-eu-3t8e894t.ew.gateway.dev/v1/user"
+curl -i -X POST -H "Content-Type: application/json" "https://apigateway-eu-3t8e894t.ew.gateway.dev/v1/user?key=" -d "{\"username\": \"ted\",\"password\": \"secret\",\"firstname\": \"Ted\",\"lastname\": \"Baker\",\"email\": \"tedbaker@example.com\"}"
+curl -i -X PUT -H "Content-Type: application/json" "https://apigateway-eu-3t8e894t.ew.gateway.dev/v1/user?username=ted&key=" -d "{\"firstname\": \"Teddy\",\"lastname\": \"Norman\",\"email\": \"tnorman@example.com\"}"
+curl -i -X DELETE "https://apigateway-eu-3t8e894t.ew.gateway.dev/v1/user?username=bob&key="
 ```
 ## Cleanup
 ```
-gcloud api-gateway gateways delete apigateway-eu --location=europe-west1 --project=api-gateway-359117
-gcloud api-gateway api-configs delete user-api-config --api=user-api --project=api-gateway-359117
-gcloud api-gateway apis delete user-api --project=api-gateway-359117
+gcloud api-gateway gateways delete apigateway-eu --location=europe-west1 --project=api-gateway-360218
+gcloud api-gateway api-configs delete user-api-config --api=user-api --project=api-gateway-360218
+gcloud api-gateway apis delete user-api --project=api-gateway-360218
 gcloud functions delete user-function-manual --region=europe-west1
 ```
